@@ -34,7 +34,7 @@ const routes: Routes = [
   { path: 'dashboard/helps', component: HelpsComponent },
   { path: 'dashboard/product', component: ProductInformationComponent },
   { path: 'dashboard/shopping/:id', component: ProductShoppingComponent },
-  { path: 'dashboard/userProfile/:dni', component: UserProfileComponent },
+  { path: 'dashboard/userProfile/:id', component: UserProfileComponent },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }
 
 ];

@@ -18,7 +18,7 @@ export class UserProfileComponent implements OnInit {
     private modalService: BsModalService) {
     this.user = localStorage.getItem('user');
     this.user = JSON.parse(this.user);
-    console.log(this.customerService.getSalesUser(this.user.dni).subscribe((data) => {
+    console.log(this.customerService.getSalesUser(this.user.id).subscribe((data) => {
       this.listOfSales = data
     }))
   }

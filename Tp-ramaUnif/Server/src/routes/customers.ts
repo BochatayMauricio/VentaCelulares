@@ -10,7 +10,7 @@ router.get('/', validateToken, getCustomers);
 router.delete('/:dni', deleteCustomer);
 router.put('/:dni', updateCustomer)
 router.post('/login', loginUser);
-router.get('/:dni', getSalesUser);
+router.get('/:id', getSalesUser);
 
 
 

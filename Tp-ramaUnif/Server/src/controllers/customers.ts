@@ -128,11 +128,11 @@ export const getSalesUsers = (req: Request, res: Response) => {
 // }
 
 export const getSalesUser = (req: Request, res: Response) => {
-  let querySearch = "SELECT * FROM sales INNER JOIN products ON products.id = sales.idProduct WHERE dniCustomer = ?;";
+  let querySearch = "SELECT * FROM sales INNER JOIN products ON products.id = sales.idProduct WHERE idCustomer = ?;";
   let salesList: any;
   connection.query({
     query: querySearch,
-    values: [req.params.dni]
+    values: [req.params.id]
   }).then((values) => {
     if (values[0].length > 0) {
       salesList = values[0]; //porque esta promesa devuelve un arreglo, donde la primera posicion contiene otro arreglo de la data

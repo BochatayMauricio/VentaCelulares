@@ -1,18 +1,18 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../db/connection";
+import { Sales } from "./sales";
 
 
 export const User = sequelize.define('user', {
 
   id: {
     type: DataTypes.INTEGER,
-    unique: true,
     autoIncrement: true,
     primaryKey: true
   },
   dni: {
     type: DataTypes.STRING,
-    unique: true,
+
     allowNull: false,
   },
   email: {

@@ -18,8 +18,8 @@ export class CustomerService {
   }
 
 
-  getSalesUser(dni: any) {
-    return this.http.get(`${this.myAppUrl}${this.myApiUrl}/${dni}`)
+  getSalesUser(id: any) {
+    return this.http.get(`${this.myAppUrl}${this.myApiUrl}/${id}`)
   }
 
 }

@@ -9,17 +9,14 @@ const connection_1 = __importDefault(require("../db/connection"));
 exports.Publication = connection_1.default.define('publication', {
     idAdministrator: {
         type: sequelize_1.DataTypes.INTEGER,
-        unique: true,
         primaryKey: true
     },
     idProduct: {
         type: sequelize_1.DataTypes.INTEGER,
-        unique: true,
         primaryKey: true
     },
     datePublication: {
         type: sequelize_1.DataTypes.STRING,
-        unique: true,
         primaryKey: true
     }
 });

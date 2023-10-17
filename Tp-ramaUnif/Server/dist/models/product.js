@@ -14,7 +14,6 @@ exports.Product = connection_1.default.define('product', {
     },
     model: {
         type: sequelize_1.DataTypes.STRING,
-        unique: true,
         allowNull: false
     },
     brand: {
