@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getSales = void 0;
 const connection_1 = __importDefault(require("../db/connection"));
 const getSales = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-    let queryTable = 'SELECT * FROM sales INNER JOIN users ON users.dni = sales.dniCustomer INNER JOIN products ON products.id = sales.idProduct';
+    let queryTable = 'SELECT * FROM sales INNER JOIN users ON users.id = sales.idCustomer INNER JOIN products ON products.id = sales.idProduct';
     let salesList;
     connection_1.default.query(queryTable).then((values) => {
         if (values[0].length > 0) {

@@ -147,6 +147,33 @@ const getSalesUser = (req, res) => {
     });
 };
 exports.getSalesUser = getSalesUser;
+// export const modifyUser = (req: Request, res: Response) => {
+//   let query = "UPDATE INTO users(email,password) VALUES (?,?)"
+//   let queryControl = "SELECT * FROM users where users.id=?"
+//   let hashedPassword = '';
+//   connection.query({
+//     query: queryControl,
+//     values: req.body.id
+//   }).then((value) => {
+//     if (value[0].length <= 0) {
+//       bcrypt.hash(req.body.password, 10).then((value) => hashedPassword = value).finally(() => {
+//         console.log(hashedPassword) //contraseña encriptada
+//         connection.query({
+//           query: query,
+//           values: [req.body.email, bcrypt.hash(req.body.password, 10)],
+//         }).then(() => {
+//           res.status(200).send({ msg: 'Datos Actualizados Correctamente' })
+//         })
+//           .catch((err) => {
+//             res.status(400).send({ msg: 'No se pudo registrar ' })
+//           })
+//       });
+//     }
+//     else {
+//       res.status(404).send('email duplicado o Administrador ya resgistrado')
+//     }
+//   })
+// };
 // export const getOneSales = (request: Request, response: Response) => {
 //   let queryTable = 'SELECT * FROM sales INNER JOIN users ON users.dni = sales.dniCustomer INNER JOIN products ON products.id = sales.idProduct WHERE users.dni = ?';
 //   let salesList: any[] = [];

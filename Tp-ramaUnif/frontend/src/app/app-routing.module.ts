@@ -15,6 +15,7 @@ import { PanelAdministradorComponent } from './components/administrador/panel-ad
 import { ProductosComponent } from './components/administrador/productos/productos.component';
 import { AdministratorComponent } from './components/administrador/administrator/administrator.component';
 import { VentasComponent } from './components/administrador/ventas/ventas.component';
+import { UserPurchasesComponent } from './components/user-purchases/user-purchases.component';
 
 
 
@@ -26,14 +27,17 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signin', component: SignInComponent },
 
+
   { path: 'admin', component: PanelAdministradorComponent },
   { path: 'admin/Productos', component: ProductosComponent },
   { path: 'admin/Clientes', component: AdministratorComponent },
   { path: 'admin/Ventas', component: VentasComponent },
+
   { path: 'dashboard', component: DashboardComponent },
   { path: 'dashboard/helps', component: HelpsComponent },
   { path: 'dashboard/product', component: ProductInformationComponent },
   { path: 'dashboard/shopping/:id', component: ProductShoppingComponent },
+  { path: 'dashboard/userPurchases/:id', component: UserPurchasesComponent },
   { path: 'dashboard/userProfile/:id', component: UserProfileComponent },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }
 

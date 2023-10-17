@@ -80,3 +80,17 @@ a {
   padding: 0.3rem;
 
 }
+
+
+.bx {
+  font-size: 30px;
+  transform: translate(110px, -43px);
+  cursor: pointer;
+}
+
+.retrieve {
+  font-size: 15px;
+  justify-content: right;
+  text-align: right;
+  transform: translateY(-30px);
+}

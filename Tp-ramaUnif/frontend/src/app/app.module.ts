@@ -55,6 +55,8 @@ import { SalesListComponent } from './components/administrador/ventas/sales-list
 import { SalesService } from './components/administrador/ventas/sales.service';
 import { AdministratorsService } from './components/administrador/administrator/administrators.service';
 import { FooterAdminComponent } from './components/administrador/footerAdmin/footer.component';
+import { UserPurchasesComponent } from './components/user-purchases/user-purchases.component';
+
 
 
 
@@ -93,7 +95,8 @@ import { FooterAdminComponent } from './components/administrador/footerAdmin/foo
     NavBarComponent,
     FilterPipe,
     NavBar2Component,
-    NavbarComponent
+    NavbarComponent,
+    UserPurchasesComponent,
 
   ],
   imports: [

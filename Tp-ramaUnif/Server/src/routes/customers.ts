@@ -8,7 +8,7 @@ const router = Router();
 
 router.get('/', validateToken, getCustomers);
 router.delete('/:dni', deleteCustomer);
-router.put('/:dni', updateCustomer)
+router.put('/:id', updateCustomer)
 router.post('/login', loginUser);
 router.get('/:id', getSalesUser);
 

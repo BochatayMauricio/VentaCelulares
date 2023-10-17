@@ -27,8 +27,11 @@ export class NavbarComponent {
   }
 
 
-  userProfile() {
-    this.router.navigate([`dashboard/userProfile/${this.user.dni}`])
+  userPurchases() {
+    this.router.navigate([`dashboard/userPurchases/${this.user.id}`])
+  }
 
+  userProfileModifier() {
+    this.router.navigate([`dashboard/userProfile`])
   }
 }

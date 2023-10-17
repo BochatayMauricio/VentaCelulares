@@ -1,6 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { async } from '@angular/core/testing';
 import { Route, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { user } from 'src/app/interfaces/user';
@@ -18,7 +17,8 @@ export class LoginComponent {
   isAdmin: boolean = false;
   adminLogin: boolean = false;
   loading: boolean = false;
-
+  type = 'password'
+  show: boolean = false;
 
 
   constructor(private toastr: ToastrService,
@@ -69,6 +69,15 @@ export class LoginComponent {
     });
 
 
+  }
+
+  showPassword(pass: any) {
+
+    if (pass.type == 'password') {
+      pass.type = 'text'
+    } else {
+      pass.type = 'password'
+    }
   }
 
 
