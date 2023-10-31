@@ -4,9 +4,10 @@ import { User } from '../models/user';
 import jwt from 'jsonwebtoken'
 import { json } from 'sequelize';
 import connection from '../db/connection'
+import { Sales } from '../models/sales';
 
 
-export const newUser = async (req: Request, res: Response) => {
+/*export const newUser = async (req: Request, res: Response) => {
 
   const { password, email, name, surname, dni, isAdmin } = req.body;
 
@@ -44,7 +45,7 @@ export const newUser = async (req: Request, res: Response) => {
   }
 
 
-}
+}*/
 
 export const getCustomers = (request: Request, response: Response) => {
   let queryTable = "SELECT * FROM users WHERE isAdmin = false";
@@ -93,6 +94,80 @@ export const updateCustomer = (request: Request, response: Response) => {
   })
 }
 
+export const updateCustomer2 = async (req: Request, res: Response) => {
+  const dni = req.params.dni;
+  const dataCustomer = req.body;
+  const user = await User.findOne({
+    where: {
+      email: dataCustomer.email,
+    }
+  }
+  )
+  if (!user) {
+    const updateCustomer = await User.update({
+
+      email: dataCustomer.email,
+      password: dataCustomer.password,
+
+    }, {
+      where: {
+        dni: dni
+      }
+    });
+    res.status(200).json({
+      ok: true,
+      message: 'Cliente Actualizado'
+    })
+  } else {
+    res.status(400).json({
+      message: 'Email Existente'
+    })
+
+  }
+}
+
+export const updateCustomer3 = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+  const dni = req.params.dni
+  const emailExist = await User.findOne({
+    where: {
+      email: email
+    }
+  })
+
+  if (emailExist) {
+    return res.status(400).json({
+      msg: 'Email Ya Existente'
+    })
+  }
+  const hashedPassword = await bcrypt.hash(password, 10);
+  try {
+    await User.update({
+      email: email,
+      password: hashedPassword,
+    }, {
+      where: {
+        dni: dni
+      }
+    });
+
+    return res.status(200).json({
+      ok: true,
+      message: 'Cliente Actualizado',
+    })
+  } catch (error) {
+    return res.status(400).json({
+      message: 'Ocurrio un Error',
+      error
+    })
+  }
+
+
+
+
+}
+
+
 export const deleteCustomer = (request: Request, response: Response) => {
   let querySearch = "DELETE FROM users WHERE dni = ? and isAdmin = false";
   connection.query({
@@ -105,3 +180,121 @@ export const deleteCustomer = (request: Request, response: Response) => {
   })
 }
 
+export const getSalesUsers = (req: Request, res: Response) => {
+  const listOfSales = Sales.findAll();
+  res.status(200).json({
+    message: 'Todo Ok',
+    body: listOfSales
+  })
+  return (listOfSales)
+}
+//   let querySearch = "SELECT * FROM sales INNER JOIN products ON products.id = sales.idProduct WHERE dniCustomer = 43713017;";
+//   connection.query({
+//     query: querySearch,
+//     values: [req.params.id]
+//   }).then((value) => {
+//     if (value[0].length === 1) {
+//       res.status(200).json(value[0][0]);
+//     } else {
+//       res.status(404).send({ msg: 'No se encontraron ventas' });
+//     }
+//   });
+// }
+
+export const getSalesUser = (req: Request, res: Response) => {
+  let querySearch = "SELECT * FROM sales INNER JOIN products ON products.id = sales.idProduct WHERE idCustomer = ?;";
+  let salesList: any;
+  connection.query({
+    query: querySearch,
+    values: [req.params.id]
+  }).then((values) => {
+    if (values[0].length > 0) {
+      salesList = values[0]; //porque esta promesa devuelve un arreglo, donde la primera posicion contiene otro arreglo de la data
+      res.status(200).json(salesList)
+    } else {
+      res.status(404).send({ msg: 'No hay ventas registradas' })
+    }
+  })
+}
+
+
+// export const modifyUser = (req: Request, res: Response) => {
+//   let query = "UPDATE INTO users(email,password) VALUES (?,?)"
+//   let queryControl = "SELECT * FROM users where users.id=?"
+//   let hashedPassword = '';
+
+//   connection.query({
+//     query: queryControl,
+//     values: req.body.id
+//   }).then((value) => {
+//     if (value[0].length <= 0) {
+//       bcrypt.hash(req.body.password, 10).then((value) => hashedPassword = value).finally(() => {
+//         console.log(hashedPassword) //contraseña encriptada
+//         connection.query({
+//           query: query,
+//           values: [req.body.email, bcrypt.hash(req.body.password, 10)],
+//         }).then(() => {
+//           res.status(200).send({ msg: 'Datos Actualizados Correctamente' })
+//         })
+//           .catch((err) => {
+//             res.status(400).send({ msg: 'No se pudo registrar ' })
+//           })
+//       });
+//     }
+//     else {
+//       res.status(404).send('email duplicado o Administrador ya resgistrado')
+//     }
+//   })
+// };
+// export const getOneSales = (request: Request, response: Response) => {
+//   let queryTable = 'SELECT * FROM sales INNER JOIN users ON users.dni = sales.dniCustomer INNER JOIN products ON products.id = sales.idProduct WHERE users.dni = ?';
+//   let salesList: any[] = [];
+//   connection.query({
+//     query: queryTable,
+//     values: [request.params.dniCustomer]
+//   }).then((values) => {
+//     if (values[0].length > 0) {
+//       salesList = values[0]; //porque esta promesa devuelve un arreglo, donde la primera posicion contiene otro arreglo de la data
+//       response.status(200).json(salesList)
+//     } else {
+//       response.status(404).send({ msg: 'No hay ventas registradas' })
+//     }
+//   })
+// }
+// export const getSalesUser = (req: Request, res: Response) => {
+//   let querySearch = "SELECT * FROM sales INNER JOIN products ON products.id = sales.idProduct WHERE dniCustomer = ?;";
+//   let salesList: any;
+//   try {
+//     connection.query({
+//       query: querySearch,
+//       values: [req.body.params]
+//     }
+//     ).then((values) => {
+//       if (values[0].length > 0) {
+//         salesList = values[0]; //porque esta promesa devuelve un arreglo, donde la primera posicion contiene otro arreglo de la data
+//         res.status(200).json(salesList)
+//       } else {
+//         res.status(404).send({ msg: 'No hay ventas registradas' })
+//       }
+//     })
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send({ msg: 'Error al obtener las ventas' });
+//   }
+// }
+
+
+// export const getSalesUser = async (req: Request, res: Response) => {
+//   let querySearch = "SELECT * FROM sales INNER JOIN products ON products.id = sales.idProduct WHERE dniCustomer = ?;";
+//   let salesList: any;
+//   connection.query(
+// Query:querySearch,
+// Values: [req.params.dni]).then((values) => {
+//     if (values[0].length > 0) {
+//       salesList = values[0]; //porque esta promesa devuelve un arreglo, donde la primera posicion contiene otro arreglo de la data
+//       res.status(200).json(salesList)
+//     } else {
+//       res.status(404).send({ msg: 'No hay ventas registradas' })
+//     }
+//   })
+// }

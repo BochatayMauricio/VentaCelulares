@@ -18,9 +18,9 @@ export class UserPurchasesComponent implements OnInit {
     private modalService: BsModalService) {
     this.user = localStorage.getItem('user');
     this.user = JSON.parse(this.user);
-    console.log(this.customerService.getSalesUser(this.user.id).subscribe((data) => {
+    this.customerService.getSalesUser(this.user.id).subscribe((data) => {
       this.listOfSales = data
-    }))
+    })
   }
 
   ngOnInit(): void {

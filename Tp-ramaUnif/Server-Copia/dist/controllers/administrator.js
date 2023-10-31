@@ -22,18 +22,18 @@ const getAdministrators = (request, response) => {
 exports.getAdministrators = getAdministrators;
 const newAdministrator = (request, response) => {
     let hashedPassword = '';
-    let query = "INSERT INTO users(dni,name,surname,email,password,isAdmin,createAt,updateAt) VALUES (?,?,?,?,?,?)";
+    let query = "INSERT INTO users(dni,name,surname,email,password,isAdmin) VALUES (?,?,?,?,?,?)";
     let queryControl = "SELECT email,dni FROM users WHERE (email like ?) OR (dni = ?)";
     connection_1.default.query({
         query: queryControl,
         values: [request.body.email, request.body.dni]
     }).then((value) => {
-        if (value[0].length <= 0) {
+        if (value[0].length == 0) {
             bcrypt_1.default.hash(request.body.password, 10).then((value) => hashedPassword = value).finally(() => {
                 console.log(hashedPassword); //contraseña encriptada
                 connection_1.default.query({
                     query: query,
-                    values: [request.body.dni, request.body.name, request.body.surname, request.body.email, hashedPassword, true, '2023 - 10-03 23: 27: 28', '2023 - 10-03 23: 27: 28'],
+                    values: [request.body.dni, request.body.name, request.body.surname, request.body.email, hashedPassword, request.body.isAdmin],
                 }).then(() => {
                     response.status(200).send({ msg: 'Administrador registrador correctamente' });
                 })

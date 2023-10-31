@@ -3,7 +3,8 @@ import cors from 'cors';
 import routesProduct from '../routes/product';
 import routesUsers from '../routes/user';
 import routesCustomers from '../routes/customers';
-import routesAdministrator from '../routes/administrator'
+import routesAdministrator from '../routes/administrator';
+import routesSales from '../routes/sales';
 import { Product } from './product';
 import { User } from './user';
 import { Domicile } from './domicile';
@@ -17,7 +18,7 @@ class Server {
 
   constructor() {
     this.app = express();
-    this.port = process.env.PORT || '3001';
+    this.port = process.env.PORT || '3306';
     this.listen();
     this.midlewares();
     this.routes();
@@ -27,7 +28,6 @@ class Server {
   listen() {
     this.app.listen(this.port, () => {
       console.log('Aplicacion corriendo en el puerto ' + this.port)
-
     })
   }
 
@@ -35,7 +35,8 @@ class Server {
     this.app.use('/api/products', routesProduct);
     this.app.use('/api/users', routesUsers);
     this.app.use('/api/customers', routesCustomers);
-    this.app.use('/api/Administrators', routesAdministrator)
+    this.app.use('/api/Administrators', routesAdministrator);
+    this.app.use('/api/sales', routesSales);
   }
 
   midlewares() {

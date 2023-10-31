@@ -1,17 +1,16 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../db/connection";
-import { Shipping } from "./shipping";
+import { User } from "./user";
+
 
 
 export const Sales = sequelize.define('sales', {
-  dniCustomer: {
+  idCustomer: {
     type: DataTypes.INTEGER,
-    unique: true,
     primaryKey: true
   },
   idProduct: {
     type: DataTypes.INTEGER,
-    unique: true,
     primaryKey: true
   },
   quantity: {
@@ -24,8 +23,13 @@ export const Sales = sequelize.define('sales', {
   },
   dateSale: {
     type: DataTypes.STRING,
-    unique: true,
-    primaryKey: true
 
-  }
+    primaryKey: true
+  },
+
+
+
 })
+
+Sales.belongsTo(User, { foreignKey: 'idCustomer' });
+User.hasOne(Sales, { foreignKey: 'idCustomer' });

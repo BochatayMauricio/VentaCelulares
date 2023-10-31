@@ -5,45 +5,51 @@ import jwt from 'jsonwebtoken'
 import { json } from 'sequelize';
 import connection from '../db/connection'
 
-// export const newUser = async (req: Request, res: Response) => {
+export const newUser = async (req: Request, res: Response) => {
+  console.log('new user entrando');
+  const { password, email, name, surname, dni, isAdmin } = req.body;
 
-//   const { password, email, name, surname, dni, isAdmin } = req.body;
-
-//   const hashedPassword = await bcrypt.hash(password, 10);
-
-
-//   //Validacion de si el usuario ya existe en la bd
-//   const user = await User.findOne({ where: { email: email } })
-
-//   if (user) {
-//     return res.status(400).json({
-//       msg: `Ya existe un usuario con el mail ${email}`
-//     })
-//   }
-
-//   try {
-//     await User.create({
-//       email: email,
-//       password: hashedPassword,
-//       name: name,
-//       surname: surname,
-//       dni: dni,
-//       isAdmin: isAdmin
-//     });
-
-//     res.json({
-//       msg: ` usuario creado exitosamente`,
-//     })
-
-//   } catch (error) {
-//     res.status(400).json({
-//       msg: 'Ocurrio un Error',
-//       error
-//     });
-//   }
+  const hashedPassword = await bcrypt.hash(password, 10);
 
 
-// }
+  //Validacion de si el usuario ya existe en la bd
+  let user = await User.findOne({ where: { email: email } })
+  if (user) {
+    return res.status(400).json({
+      msg: `Ya existe un usuario con el mail ${email}`
+    })
+  }
+
+  user = await User.findOne({ where: { dni: dni } })
+  if (user) {
+    return res.status(400).json({
+      msg: `Ya existe un usuario con el dni ${dni}`
+    })
+  }
+
+  try {
+    await User.create({
+      email: email,
+      password: hashedPassword,
+      name: name,
+      surname: surname,
+      dni: dni,
+      isAdmin: isAdmin
+    });
+
+    res.json({
+      msg: ` usuario creado exitosamente`,
+    })
+
+  } catch (error) {
+    res.status(400).json({
+      msg: 'Ocurrio un Error',
+      error
+    });
+  }
+
+
+}
 
 export const loginUser = async (req: Request, res: Response) => {
   const { email, password, adminLogin } = req.body;
@@ -110,3 +116,5 @@ export const getCustomer = async (req: Request, res: Response) => {
   const oneUser = await User.findOne({ where: { email: email } });
   res.json(oneUser);
 }
+
+

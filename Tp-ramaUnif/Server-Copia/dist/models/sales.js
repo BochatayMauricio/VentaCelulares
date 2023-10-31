@@ -6,15 +6,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Sales = void 0;
 const sequelize_1 = require("sequelize");
 const connection_1 = __importDefault(require("../db/connection"));
+const user_1 = require("./user");
 exports.Sales = connection_1.default.define('sales', {
-    dniCustomer: {
+    idCustomer: {
         type: sequelize_1.DataTypes.INTEGER,
-        unique: true,
         primaryKey: true
     },
     idProduct: {
         type: sequelize_1.DataTypes.INTEGER,
-        unique: true,
         primaryKey: true
     },
     quantity: {
@@ -27,7 +26,8 @@ exports.Sales = connection_1.default.define('sales', {
     },
     dateSale: {
         type: sequelize_1.DataTypes.STRING,
-        unique: true,
         primaryKey: true
-    }
+    },
 });
+exports.Sales.belongsTo(user_1.User, { foreignKey: 'idCustomer' });
+user_1.User.hasOne(exports.Sales, { foreignKey: 'idCustomer' });

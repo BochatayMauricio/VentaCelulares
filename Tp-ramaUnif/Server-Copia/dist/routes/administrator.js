@@ -5,7 +5,6 @@ const customers_1 = require("../controllers/customers");
 const user_1 = require("../controllers/user");
 const administrator_1 = require("../controllers/administrator");
 const router = (0, express_1.Router)();
-router.post('/', customers_1.newUser);
 router.get('/:dni', administrator_1.getOneAdministrator);
 router.delete('/:dni', customers_1.deleteCustomer);
 router.put('/:dni', customers_1.updateCustomer);

@@ -12,39 +12,48 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getCustomer = exports.loginUser = void 0;
+exports.getCustomer = exports.loginUser = exports.newUser = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const user_1 = require("../models/user");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-// export const newUser = async (req: Request, res: Response) => {
-//   const { password, email, name, surname, dni, isAdmin } = req.body;
-//   const hashedPassword = await bcrypt.hash(password, 10);
-//   //Validacion de si el usuario ya existe en la bd
-//   const user = await User.findOne({ where: { email: email } })
-//   if (user) {
-//     return res.status(400).json({
-//       msg: `Ya existe un usuario con el mail ${email}`
-//     })
-//   }
-//   try {
-//     await User.create({
-//       email: email,
-//       password: hashedPassword,
-//       name: name,
-//       surname: surname,
-//       dni: dni,
-//       isAdmin: isAdmin
-//     });
-//     res.json({
-//       msg: ` usuario creado exitosamente`,
-//     })
-//   } catch (error) {
-//     res.status(400).json({
-//       msg: 'Ocurrio un Error',
-//       error
-//     });
-//   }
-// }
+const newUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('new user entrando');
+    const { password, email, name, surname, dni, isAdmin } = req.body;
+    const hashedPassword = yield bcrypt_1.default.hash(password, 10);
+    //Validacion de si el usuario ya existe en la bd
+    let user = yield user_1.User.findOne({ where: { email: email } });
+    if (user) {
+        return res.status(400).json({
+            msg: `Ya existe un usuario con el mail ${email}`
+        });
+    }
+    user = yield user_1.User.findOne({ where: { dni: dni } });
+    if (user) {
+        return res.status(400).json({
+            msg: `Ya existe un usuario con el dni ${dni}`
+        });
+    }
+    try {
+        yield user_1.User.create({
+            email: email,
+            password: hashedPassword,
+            name: name,
+            surname: surname,
+            dni: dni,
+            isAdmin: isAdmin
+        });
+        res.json({
+            msg: ` usuario creado exitosamente`,
+        });
+    }
+    catch (error) {
+        res.status(400).json({
+            msg: 'Ocurrio un Error',
+            error
+        });
+    }
+});
+exports.newUser = newUser;
 const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password, adminLogin } = req.body;
     //Validamos si el usuario existe en la bd

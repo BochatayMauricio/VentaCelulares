@@ -9,13 +9,11 @@ const connection_1 = __importDefault(require("../db/connection"));
 exports.User = connection_1.default.define('user', {
     id: {
         type: sequelize_1.DataTypes.INTEGER,
-        unique: true,
         autoIncrement: true,
         primaryKey: true
     },
     dni: {
         type: sequelize_1.DataTypes.STRING,
-        unique: true,
         allowNull: false,
     },
     email: {

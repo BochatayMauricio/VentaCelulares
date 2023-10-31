@@ -94,6 +94,80 @@ export const updateCustomer = (request: Request, response: Response) => {
   })
 }
 
+export const updateCustomer2 = async (req: Request, res: Response) => {
+  const dni = req.params.dni;
+  const dataCustomer = req.body;
+  const user = await User.findOne({
+    where: {
+      email: dataCustomer.email,
+    }
+  }
+  )
+  if (!user) {
+    const updateCustomer = await User.update({
+
+      email: dataCustomer.email,
+      password: dataCustomer.password,
+
+    }, {
+      where: {
+        dni: dni
+      }
+    });
+    res.status(200).json({
+      ok: true,
+      message: 'Cliente Actualizado'
+    })
+  } else {
+    res.status(400).json({
+      message: 'Email Existente'
+    })
+
+  }
+}
+
+export const updateCustomer3 = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+  const dni = req.params.dni
+  const emailExist = await User.findOne({
+    where: {
+      email: email
+    }
+  })
+
+  if (emailExist) {
+    return res.status(400).json({
+      msg: 'Email Ya Existente'
+    })
+  }
+  const hashedPassword = await bcrypt.hash(password, 10);
+  try {
+    await User.update({
+      email: email,
+      password: hashedPassword,
+    }, {
+      where: {
+        dni: dni
+      }
+    });
+
+    return res.status(200).json({
+      ok: true,
+      message: 'Cliente Actualizado',
+    })
+  } catch (error) {
+    return res.status(400).json({
+      message: 'Ocurrio un Error',
+      error
+    })
+  }
+
+
+
+
+}
+
+
 export const deleteCustomer = (request: Request, response: Response) => {
   let querySearch = "DELETE FROM users WHERE dni = ? and isAdmin = false";
   connection.query({

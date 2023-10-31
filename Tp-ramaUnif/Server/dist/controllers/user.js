@@ -21,10 +21,16 @@ const newUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { password, email, name, surname, dni, isAdmin } = req.body;
     const hashedPassword = yield bcrypt_1.default.hash(password, 10);
     //Validacion de si el usuario ya existe en la bd
-    const user = yield user_1.User.findOne({ where: { email: email } });
+    let user = yield user_1.User.findOne({ where: { email: email } });
     if (user) {
         return res.status(400).json({
             msg: `Ya existe un usuario con el mail ${email}`
+        });
+    }
+    user = yield user_1.User.findOne({ where: { dni: dni } });
+    if (user) {
+        return res.status(400).json({
+            msg: `Ya existe un usuario con el dni ${dni}`
         });
     }
     try {

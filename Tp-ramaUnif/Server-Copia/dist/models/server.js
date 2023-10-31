@@ -18,16 +18,17 @@ const product_1 = __importDefault(require("../routes/product"));
 const user_1 = __importDefault(require("../routes/user"));
 const customers_1 = __importDefault(require("../routes/customers"));
 const administrator_1 = __importDefault(require("../routes/administrator"));
+const sales_1 = __importDefault(require("../routes/sales"));
 const product_2 = require("./product");
 const user_2 = require("./user");
 const domicile_1 = require("./domicile");
 const publication_1 = require("./publication");
-const sales_1 = require("./sales");
+const sales_2 = require("./sales");
 const shipping_1 = require("./shipping");
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
-        this.port = process.env.PORT || '3001';
+        this.port = process.env.PORT || '3306';
         this.listen();
         this.midlewares();
         this.routes();
@@ -43,6 +44,7 @@ class Server {
         this.app.use('/api/users', user_1.default);
         this.app.use('/api/customers', customers_1.default);
         this.app.use('/api/Administrators', administrator_1.default);
+        this.app.use('/api/sales', sales_1.default);
     }
     midlewares() {
         // Parseo Body
@@ -57,7 +59,7 @@ class Server {
                 yield domicile_1.Domicile.sync();
                 yield shipping_1.Shipping.sync();
                 yield publication_1.Publication.sync();
-                yield sales_1.Sales.sync();
+                yield sales_2.Sales.sync();
             }
             catch (error) {
                 console.log('Unable to connect to the database: ', error);

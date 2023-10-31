@@ -23,7 +23,7 @@ export const newAdministrator = (request: Request, response: Response) => {
     query: queryControl,
     values: [request.body.email, request.body.dni]
   }).then((value) => {
-    if (value[0].length <= 0) {
+    if (value[0].length == 0) {
       bcrypt.hash(request.body.password, 10).then((value) => hashedPassword = value).finally(() => {
         console.log(hashedPassword) //contraseña encriptada
         connection.query({

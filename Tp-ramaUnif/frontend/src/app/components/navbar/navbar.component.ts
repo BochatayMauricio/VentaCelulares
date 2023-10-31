@@ -10,12 +10,14 @@ import { user } from 'src/app/interfaces/user';
 export class NavbarComponent {
   user: any;
   id: any;
+  dni: any;
 
   constructor(private router: Router) {
 
     this.user = (localStorage.getItem('user'));
     this.user = JSON.parse(this.user);
     this.id = this.user.id;
+    this.dni = this.user.dni
   }
 
 
@@ -32,6 +34,6 @@ export class NavbarComponent {
   }
 
   userProfileModifier() {
-    this.router.navigate([`dashboard/userProfile`])
+    this.router.navigate([`dashboard/userProfile/:${this.dni}`])
   }
 }

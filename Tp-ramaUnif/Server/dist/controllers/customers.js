@@ -1,10 +1,20 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getSalesUser = exports.getSalesUsers = exports.deleteCustomer = exports.updateCustomer = exports.getCustomers = void 0;
+exports.getSalesUser = exports.getSalesUsers = exports.deleteCustomer = exports.updateCustomer3 = exports.updateCustomer2 = exports.updateCustomer = exports.getCustomers = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const user_1 = require("../models/user");
 const connection_1 = __importDefault(require("../db/connection"));
 const sales_1 = require("../models/sales");
 /*export const newUser = async (req: Request, res: Response) => {
@@ -97,6 +107,71 @@ const updateCustomer = (request, response) => {
     });
 };
 exports.updateCustomer = updateCustomer;
+const updateCustomer2 = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const dni = req.params.dni;
+    const dataCustomer = req.body;
+    const user = yield user_1.User.findOne({
+        where: {
+            email: dataCustomer.email,
+        }
+    });
+    if (!user) {
+        const updateCustomer = yield user_1.User.update({
+            email: dataCustomer.email,
+            password: dataCustomer.password,
+        }, {
+            where: {
+                dni: dni
+            }
+        });
+        res.status(200).json({
+            ok: true,
+            message: 'Cliente Actualizado'
+        });
+    }
+    else {
+        res.status(400).json({
+            message: 'Email Existente'
+        });
+    }
+});
+exports.updateCustomer2 = updateCustomer2;
+const updateCustomer3 = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email, password } = req.body;
+    const dni = req.params.dni;
+    const emailExist = yield user_1.User.findOne({
+        where: {
+            email: email
+        }
+    });
+    if (emailExist) {
+        return res.status(400).json({
+            msg: 'Email Ya Existente'
+        });
+    }
+    const hashedPassword = yield bcrypt_1.default.hash(password, 10);
+    try {
+        yield user_1.User.update({
+            email: email,
+            password: hashedPassword,
+        }, {
+            where: {
+                dni: dni
+            }
+        });
+        return res.status(200).json({
+            ok: true,
+            message: 'Cliente Actualizado',
+        });
+    }
+    catch (error) {
+        return res.status(400).json({
+            message: 'Ocurrio un Error',
+            error
+        });
+    }
+});
+exports.updateCustomer3 = updateCustomer3;
 const deleteCustomer = (request, response) => {
     let querySearch = "DELETE FROM users WHERE dni = ? and isAdmin = false";
     connection_1.default.query({

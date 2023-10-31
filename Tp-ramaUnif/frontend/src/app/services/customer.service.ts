@@ -22,6 +22,8 @@ export class CustomerService {
     return this.http.get(`${this.myAppUrl}${this.myApiUrl}/${id}`)
   }
 
-
+  updateCustomers(dni: any, user: any) {
+    return this.http.patch(`${this.myAppUrl}${this.myApiUrl}/${dni}`, user)
+  }
 
 }
