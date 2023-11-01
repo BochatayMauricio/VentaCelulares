@@ -19,9 +19,9 @@ export class UserProfileComponent implements OnInit {
   pass: boolean = false;
   mail: boolean = false;
   user: any;
-  newEmail: any = '';
-  newPassword: any = '';
-  newPassword2: any = '';
+  newEmail: any = "";
+  newPassword: any = "";
+  newPassword2: any = "";
   userM: any = {
     email: '',
     password: ''
@@ -34,9 +34,8 @@ export class UserProfileComponent implements OnInit {
     private toastr: ToastrService,) {
     this.user = localStorage.getItem('user');
     this.user = JSON.parse(this.user);
-    this.userM.email = this.user.email;
-    this.userM.password = this.user.password
-    console.log(this.user.email, this.user.password)
+    this.userM.email = "";
+    this.userM.password = "";
   }
 
   ngOnInit(): void {
@@ -47,11 +46,11 @@ export class UserProfileComponent implements OnInit {
   userModifier() {
 
     if (this.newPassword == '' && this.newPassword2 == '' && this.newEmail == '') {
-      alert('Todos los campos son obligatorios')
+      this.toastr.error('Todos los campos son obligatorios')
     } else {
-      if (this.newEmail != '') {
+      if (this.newEmail != "") {
         this.userM.email = this.newEmail;
-
+        console.log(this.userM.email);
         this.customerService.updateCustomers(this.user.dni, this.userM).subscribe({
           next: (res: any) => {
             this.user.email = this.userM.email;
@@ -59,6 +58,7 @@ export class UserProfileComponent implements OnInit {
             this.toastr.success(`Mail Modificado a: ${this.userM.email}`);
 
           }, error: (e: HttpErrorResponse) => {
+            this.toastr.error(`ERROR  ${this.userM.email}`);
             this.errorService.msjError(e);
           }
         });
@@ -66,9 +66,13 @@ export class UserProfileComponent implements OnInit {
       } else {
         if (this.newPassword === this.newPassword2) {
           this.userM.password = this.newPassword;
+          console.log(this.userM.password);
           this.customerService.updateCustomers(this.user.dni, this.userM).subscribe({
             next: () => {
               this.toastr.success(`Contraseña modificada`);
+              console.log(this.userM.password);
+            }, error: () => {
+              this.toastr.error("Ocurrio un Error");
             }
           });
         } else {

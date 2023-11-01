@@ -128,43 +128,55 @@ export const updateCustomer2 = async (req: Request, res: Response) => {
 
 export const updateCustomer3 = async (req: Request, res: Response) => {
   const { email, password } = req.body;
-  const dni = req.params.dni
-  const emailExist = await User.findOne({
-    where: {
-      email: email
+  const dni = req.params.dni;
+  if (email == "" || email == undefined) {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    try {
+      await User.update({
+        password: hashedPassword
+      }, {
+        where: {
+          dni: dni
+        }
+      })
+      return res.status(200).json({
+        msg: 'Password Actualizada',
+        body: hashedPassword, password, User
+      })
+        ;
+    } catch (error) {
+      return res.status(400).json({
+        msg: "No se pudo Actualizar"
+      });
     }
-  })
-
-  if (emailExist) {
-    return res.status(400).json({
-      msg: 'Email Ya Existente'
-    })
-  }
-  const hashedPassword = await bcrypt.hash(password, 10);
-  try {
-    await User.update({
-      email: email,
-      password: hashedPassword,
-    }, {
+  } else {
+    const emailExist = await User.findOne({
       where: {
-        dni: dni
+        email: email
       }
-    });
-
-    return res.status(200).json({
-      ok: true,
-      message: 'Cliente Actualizado',
     })
-  } catch (error) {
-    return res.status(400).json({
-      message: 'Ocurrio un Error',
-      error
-    })
-  }
 
+    if (emailExist) {
+      return res.status(400).json({
+        msg: 'Email Ya Existente'
+      })
+    }
 
-
-
+    try {
+      await User.update({
+        email: email
+      }, {
+        where: {
+          dni: dni
+        }
+      });
+      return res.status(200).json({
+        msg: "Actualizado"
+      });
+    } catch (error) {
+      return res.status(400)
+    }
+  };
 }
 
 

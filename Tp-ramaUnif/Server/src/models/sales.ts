@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../db/connection";
 import { User } from "./user";
+import { Product } from "./product";
 
 
 
@@ -33,3 +34,6 @@ export const Sales = sequelize.define('sales', {
 
 Sales.belongsTo(User, { foreignKey: 'idCustomer' });
 User.hasOne(Sales, { foreignKey: 'idCustomer' });
+
+Sales.belongsTo(Product, { foreignKey: 'idProduct' });
+Product.hasOne(Sales, { foreignKey: 'idProduct' });

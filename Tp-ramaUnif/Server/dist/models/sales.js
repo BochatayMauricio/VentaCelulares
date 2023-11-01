@@ -7,6 +7,7 @@ exports.Sales = void 0;
 const sequelize_1 = require("sequelize");
 const connection_1 = __importDefault(require("../db/connection"));
 const user_1 = require("./user");
+const product_1 = require("./product");
 exports.Sales = connection_1.default.define('sales', {
     idCustomer: {
         type: sequelize_1.DataTypes.INTEGER,
@@ -31,3 +32,5 @@ exports.Sales = connection_1.default.define('sales', {
 });
 exports.Sales.belongsTo(user_1.User, { foreignKey: 'idCustomer' });
 user_1.User.hasOne(exports.Sales, { foreignKey: 'idCustomer' });
+exports.Sales.belongsTo(product_1.Product, { foreignKey: 'idProduct' });
+product_1.Product.hasOne(exports.Sales, { foreignKey: 'idProduct' });

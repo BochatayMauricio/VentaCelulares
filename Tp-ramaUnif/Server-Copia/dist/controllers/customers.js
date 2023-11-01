@@ -139,37 +139,55 @@ exports.updateCustomer2 = updateCustomer2;
 const updateCustomer3 = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     const dni = req.params.dni;
-    const emailExist = yield user_1.User.findOne({
-        where: {
-            email: email
+    if (email == "" || email == undefined) {
+        const hashedPassword = yield bcrypt_1.default.hash(password, 10);
+        try {
+            yield user_1.User.update({
+                password: hashedPassword
+            }, {
+                where: {
+                    dni: dni
+                }
+            });
+            return res.status(200).json({
+                msg: 'Password Actualizada',
+                body: hashedPassword, password, User: user_1.User
+            });
         }
-    });
-    if (emailExist) {
-        return res.status(400).json({
-            msg: 'Email Ya Existente'
-        });
+        catch (error) {
+            return res.status(400).json({
+                msg: "No se pudo Actualizar"
+            });
+        }
     }
-    const hashedPassword = yield bcrypt_1.default.hash(password, 10);
-    try {
-        yield user_1.User.update({
-            email: email,
-            password: hashedPassword,
-        }, {
+    else {
+        const emailExist = yield user_1.User.findOne({
             where: {
-                dni: dni
+                email: email
             }
         });
-        return res.status(200).json({
-            ok: true,
-            message: 'Cliente Actualizado',
-        });
+        if (emailExist) {
+            return res.status(400).json({
+                msg: 'Email Ya Existente'
+            });
+        }
+        try {
+            yield user_1.User.update({
+                email: email
+            }, {
+                where: {
+                    dni: dni
+                }
+            });
+            return res.status(200).json({
+                msg: "Actualizado"
+            });
+        }
+        catch (error) {
+            return res.status(400);
+        }
     }
-    catch (error) {
-        return res.status(400).json({
-            message: 'Ocurrio un Error',
-            error
-        });
-    }
+    ;
 });
 exports.updateCustomer3 = updateCustomer3;
 const deleteCustomer = (request, response) => {
