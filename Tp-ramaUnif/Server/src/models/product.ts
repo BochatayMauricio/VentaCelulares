@@ -32,13 +32,6 @@ export const Product = sequelize.define('product', {
   stock: {
     type: DataTypes.INTEGER,
     allowNull: false
-  },
-  date_register: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  date_updated: {
-    type: DataTypes.STRING,
-    allowNull: false
   }
 })
+

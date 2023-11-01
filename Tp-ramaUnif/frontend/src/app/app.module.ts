@@ -63,6 +63,7 @@ import { UserPurchasesComponent } from './components/user-purchases/user-purchas
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -116,8 +117,8 @@ import { UserPurchasesComponent } from './components/user-purchases/user-purchas
     }), CarouselModule.forRoot(), ModalModule.forRoot(), BsDropdownModule.forRoot(), RatingModule.forRoot() // ToastrModule added
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AddTokenInterceptor, multi: true }
-  ],
+    { provide: HTTP_INTERCEPTORS, useClass: AddTokenInterceptor, multi: true }],
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }

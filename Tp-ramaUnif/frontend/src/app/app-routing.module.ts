@@ -22,6 +22,7 @@ import { UserPurchasesComponent } from './components/user-purchases/user-purchas
 
 
 
+
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },

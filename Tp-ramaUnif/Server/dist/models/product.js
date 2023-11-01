@@ -35,13 +35,5 @@ exports.Product = connection_1.default.define('product', {
     stock: {
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: false
-    },
-    date_register: {
-        type: sequelize_1.DataTypes.STRING,
-        allowNull: false
-    },
-    date_updated: {
-        type: sequelize_1.DataTypes.STRING,
-        allowNull: false
     }
 });

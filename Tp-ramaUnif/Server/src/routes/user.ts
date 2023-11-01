@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { getCustomer, loginUser } from "../controllers/user";
 import { newUser } from "../controllers/user";
+import validateToken from "./validate-token";
 
 
 

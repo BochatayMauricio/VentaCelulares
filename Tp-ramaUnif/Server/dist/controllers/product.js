@@ -26,10 +26,10 @@ const newProduct = (request, response) => {
     if (file != undefined) {
         const url = `http://localhost:3001/Images/${file.filename}`;
         //MANDAMOS A LA BD TODO LISTO
-        let query = "INSERT INTO products (model,brand,description,price,stock,date_register,date_updated,image,createdAt,updatedAt) VALUES (?,?,?,?,?,?,?,?,?,?) "; //AGREGAR COMMIT EN LOS INSERT
+        let query = "INSERT INTO products (model,brand,description,price,stock,image,createdAt,updatedAt) VALUES (?,?,?,?,?,?,?,?,?,?) "; //AGREGAR COMMIT EN LOS INSERT
         connection_1.default.query({
             query: query,
-            values: [body.model, body.brand, body.description, body.price, body.stock, body.date_register, body.date_updated, url, null, null]
+            values: [body.model, body.brand, body.description, body.price, body.stock, url, null, null]
         }).then(() => {
             response.status(200).send({ msg: 'Producto cagargado Correctamente' });
         })

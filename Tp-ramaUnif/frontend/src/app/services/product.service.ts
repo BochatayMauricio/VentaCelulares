@@ -18,9 +18,8 @@ export class ProductService {
     description: '',
     price: 0,
     stock: 0,
-    date_register: '',
-    date_updated: '',
-    image: ''
+    image: '',
+    createdAt: new Date()
   }
   private productInfo: BehaviorSubject<product> = new BehaviorSubject<product>(this.nullproduct);
 

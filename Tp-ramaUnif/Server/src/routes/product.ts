@@ -8,7 +8,7 @@ const uploader = multer({ storage })
 
 const router = Router();
 
-router.get('/', validateToken, getProducts);
+router.get('/', getProducts);
 router.put('/:id', updateProduct);
 router.delete('/:id', deleteProduct);
 router.post('/', uploader.single('file'), newProduct);

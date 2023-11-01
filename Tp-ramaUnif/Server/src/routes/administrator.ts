@@ -11,7 +11,7 @@ const router = Router();
 router.get('/:dni', getOneAdministrator);
 router.delete('/:dni', deleteCustomer);
 router.put('/:dni', updateCustomer)
-router.post('/login', loginUser);
+router.post('/login', validateToken, loginUser);
 router.get('/', getAdministrators)
 // router.get('/login/:email', getCustomer)
 
