@@ -1,8 +1,9 @@
 body {
-  background-image: url(https://st1.uvnimg.com/dims4/default/e2133b7/2147483647/thumbnail/1024x576%3E/quality/75/?url=https%3A%2F%2Fuvn-brightspot.s3.amazonaws.com%2Fassets%2Fvixes%2Fbtg%2Ftech.batanga.com%2Ffiles%2FFondos-para-paginas-web.jpg);
+  background-image: url(https://wallpapercave.com/wp/wp6994803.jpg);
   background-size: cover;
   background-attachment: scroll;
 }
+
 
 .card {
   display: block;
@@ -25,10 +26,11 @@ body {
   display: inline-block;
   align-items: center;
   justify-content: center;
-  background-color: rgba(245, 222, 179, 0.592);
+  background-color: rgba(240, 237, 233, 0.592);
   margin: 10px 10px 10px 25%;
   padding: 10px;
   border-radius: 10px;
+  border: solid 2px white
 }
 
 
@@ -64,10 +66,11 @@ body {
   display: block;
   align-items: center;
   justify-content: center;
-  background-color: rgba(245, 222, 179, 0.592);
+  background-color: rgba(240, 237, 233, 0.592);
   margin: 10px 10px 10px 25%;
   padding: 10px;
   border-radius: 10px;
+  border: solid 2px white;
 }
 
 
