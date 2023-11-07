@@ -1,8 +1,6 @@
 import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import { User } from '../models/user';
-import jwt from 'jsonwebtoken'
-import { json } from 'sequelize';
 import connection from '../db/connection'
 import { Sales } from '../models/sales';
 

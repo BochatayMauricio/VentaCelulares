@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { clients } from '../interfaces/clientes';
 import { BehaviorSubject } from 'rxjs';
+import { user } from 'src/app/interfaces/user';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import { BehaviorSubject } from 'rxjs';
 export class CustomersService {
   customers: any = [];
 
-  private customer: BehaviorSubject<clients[]> = new BehaviorSubject<clients[]>([]);
+  private customer: BehaviorSubject<user[]> = new BehaviorSubject<user[]>([]);
   constructor(private http: HttpClient) { }
 
   getCustomers() {

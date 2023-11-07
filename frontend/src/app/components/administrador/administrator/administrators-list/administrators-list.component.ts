@@ -1,7 +1,7 @@
 import { Component, TemplateRef } from '@angular/core';
-import { administrator } from '../../interfaces/administrator';
 import { AdministratorsService } from '../administrators.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { user } from 'src/app/interfaces/user';
 
 @Component({
   selector: 'app-administrators-list',
@@ -9,7 +9,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
   styleUrls: ['./administrators-list.component.scss']
 })
 export class AdministratorsListComponent {
-  administratorResgisted: administrator[] = [];
+  administratorResgisted: user[] = [];
   administrator: any;
   user: any;
   index: number | undefined;
@@ -40,9 +40,6 @@ export class AdministratorsListComponent {
   findAdministrator() {
     this.user = localStorage.getItem('user');
     this.user = JSON.parse(this.user)
-    // this.index = this.administratorResgisted.findIndex((admin) => {
-    //   admin.dni = this.user.dni
-    // })
   }
 
 }

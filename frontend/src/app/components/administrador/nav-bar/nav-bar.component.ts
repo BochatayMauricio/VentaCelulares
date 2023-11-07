@@ -1,6 +1,5 @@
 import { Component, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { administrator } from '../interfaces/administrator';
 import { Router } from '@angular/router';
 import { Parser } from '@angular/compiler';
 

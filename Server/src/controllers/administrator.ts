@@ -63,13 +63,6 @@ export const deleteAdministrator = (request: Request, response: Response) => {
     }
   })
 }
-/*export const deleteAdministrator = async (request: Request, response: Response) => {
-  // let querySearch = "DELETE FROM users WHERE dni = ? and isAdmin = true";
-  const admin = User.findOne({where:{dni:request.params.dni}});
-  
-}*/
-
-
 
 export const getOneAdministrator = (request: Request, response: Response) => {
   let querySearch = "SELECT * FROM users WHERE dni = ? and isAdmin = true";

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject } from "rxjs";
-import { product } from "../interfaces/productos";
-import { sales } from '../interfaces/sales';
+import { sales } from '../../../interfaces/sales';
 
 @Injectable({
   providedIn: 'root'

@@ -36,7 +36,7 @@
                   <td class="data">
                     <p>$ {{sales.price}}</p>
                   </td>
-                  <td class="data"><img src="{{sales.image}}" alt=""></td>
+                  <td class="data"><img [src]=getUrl(sales?.image) alt=""></td>
                   <td class="data"><button class="btn btn-secondary" (click)="productInfo(template)">Ver Mas</button>
                   </td>
                 </tr>
@@ -51,7 +51,7 @@
                   </div>
                   <div class="modal-body">
                     <div class="modal-body-right">
-                      <img src="{{sales.image}}" style="max-height:200px ;" alt="">
+                      <img [src]=getUrl(sales?.image) style="max-height:200px ;" alt="">
                     </div>
                     <div class="modal-body-left">
                       <td>

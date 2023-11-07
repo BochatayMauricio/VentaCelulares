@@ -2,8 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { product } from '../interfaces/productos';
-import { FormGroup } from "@angular/forms";
+import { product } from 'src/app/interfaces/product';
 
 @Injectable({
   providedIn: 'root'

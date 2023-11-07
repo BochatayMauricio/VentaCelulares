@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { administrator } from '../../interfaces/administrator';
 import { AdministratorsService } from '../administrators.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-administrator-form',
@@ -17,7 +17,7 @@ export class AdministratorFormComponent {
     email: new FormControl("", [Validators.required]),
     password: new FormControl("", Validators.required),
   });
-  constructor(private adminService: AdministratorsService) { }
+  constructor(private adminService: AdministratorsService, private toastr: ToastrService) { }
 
   registrarForm() {
     const administrator: any = {
@@ -30,8 +30,11 @@ export class AdministratorFormComponent {
     }
     console.log(administrator);
     this.adminService.postAdministrator(administrator).subscribe({
-      complete: () => { this.adminService.retraiveAdministrator() },
-      error: (error) => alert('Administrador duplicado, DNI o EMAIL duplicados')
+      complete: () => { 
+        this.adminService.retraiveAdministrator();
+        this.toastr.success('Administrador cargado correctamente')
+       },
+      error: (error) => this.toastr.error('Administrador duplicado, DNI o EMAIL duplicados')
     });
 
   }

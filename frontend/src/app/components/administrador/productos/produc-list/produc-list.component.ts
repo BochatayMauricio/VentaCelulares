@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ProductoService } from '../producto.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { product } from '../../interfaces/productos';
+import { product } from 'src/app/interfaces/product';
 
 @Component({
   selector: 'app-produc-list',

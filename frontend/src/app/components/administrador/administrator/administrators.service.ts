@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { administrator } from '../interfaces/administrator';
 import { HttpClient } from '@angular/common/http';
+import { user } from 'src/app/interfaces/user';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +10,9 @@ export class AdministratorsService {
 
   administrators: any = [];
 
-  private administratorsSubject: BehaviorSubject<administrator[]> = new BehaviorSubject<administrator[]>([]);
+  private administratorsSubject: BehaviorSubject<user[]> = new BehaviorSubject<user[]>([]);
   constructor(private http: HttpClient) { }
-  postAdministrator(administratorEnter: administrator) {
+  postAdministrator(administratorEnter: user) {
     //ACA MANDAMOS MEDIANTE UN POST A LA API
     return this.http.post('http://localhost:3001/api/Administrators', administratorEnter);
   }
@@ -26,12 +26,12 @@ export class AdministratorsService {
     return this.administratorsSubject.asObservable();
   }
 
-  deleteAdministrator(administrator: administrator) {
+  deleteAdministrator(administrator: user) {
     const dniAdministrator = administrator.dni;
     return this.http.delete(`http://localhost:3001/api/Administrators/${dniAdministrator}`);
   }
 
-  updateAdministrator(administratorModify: administrator) {
+  updateAdministrator(administratorModify: user) {
     const dniAdministrator = administratorModify.dni;
     return this.http.put(`http://localhost:3001/api/Administrators/${dniAdministrator}`, administratorModify)
   }

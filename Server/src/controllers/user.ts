@@ -47,8 +47,6 @@ export const newUser = async (req: Request, res: Response) => {
       error
     });
   }
-
-
 }
 
 export const loginUser = async (req: Request, res: Response) => {

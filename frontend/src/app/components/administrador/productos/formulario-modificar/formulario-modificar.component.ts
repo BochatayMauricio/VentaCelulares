@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ProductoService } from '../producto.service';
-import { product } from '../../interfaces/productos';
+import { product } from 'src/app/interfaces/product';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-formulario-modificar',
@@ -8,7 +9,7 @@ import { product } from '../../interfaces/productos';
   styleUrls: ['./formulario-modificar.component.scss']
 })
 export class FormularioModificarComponent implements OnInit {
-  constructor(private productoS: ProductoService) { }
+  constructor(private productoS: ProductoService, private toastr: ToastrService) { }
   @Input() productReceived: any;
   ngOnInit(): void {
 
@@ -22,10 +23,15 @@ export class FormularioModificarComponent implements OnInit {
       price: price.value || this.productReceived.price,
       stock: stock.value || this.productReceived.stock,
       description: description.value || this.productReceived.description,
-
+      createdAt: this.productReceived.createdAt,
+      quantity:this.productReceived.quantity,
+      image: this.productReceived.image
     }
     this.productoS.updateProduct(productModify).subscribe({
-      complete: () => this.productoS.retraiveProducts(),
+      complete: () => {
+        this.productoS.retraiveProducts();
+        this.toastr.success('Producto Actualizado')
+      },
       error: (err) => alert('No se realizo correctamente la modificacion')
     });
   }

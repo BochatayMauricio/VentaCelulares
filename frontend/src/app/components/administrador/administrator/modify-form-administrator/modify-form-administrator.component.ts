@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { administrator } from '../../interfaces/administrator';
 import { AdministratorsService } from '../administrators.service';
+import { user } from 'src/app/interfaces/user';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-modify-form-administrator',
@@ -9,19 +10,24 @@ import { AdministratorsService } from '../administrators.service';
 })
 export class ModifyFormAdministratorComponent {
   @Input() administratorReceived: any;
-  constructor(private adminService: AdministratorsService) { }
+  constructor(private adminService: AdministratorsService, private toaster: ToastrService) { }
 
   updateAdministrator(email: any, password: any) {
 
-    const administratorModify: administrator = {
+    const administratorModify: user = {
+      idUser: this.administratorReceived.idUser,
       dni: this.administratorReceived.dni,
       name: this.administratorReceived.name,
       surname: this.administratorReceived.surname,
       email: email.value || this.administratorReceived.email,
       password: password.value || this.administratorReceived.password,
+      isAdmin: this.administratorReceived.isAdmin
     }
     this.adminService.updateAdministrator(administratorModify).subscribe({
-      complete: () => this.adminService.retraiveAdministrator(),
+      complete: () => {
+        this.adminService.retraiveAdministrator();
+        this.toaster.success('Administrador actulizado!');
+      },
       error: (err) => alert('No se realizo correctamente la modificacion')
     });
   }

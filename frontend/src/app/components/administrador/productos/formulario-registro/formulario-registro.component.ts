@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductoService } from '../producto.service';
-import { product } from '../../interfaces/productos';
 import { AlertComponent } from 'ngx-bootstrap/alert';
 
 

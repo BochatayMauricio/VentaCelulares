@@ -31,4 +31,8 @@ export class UserPurchasesComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
+  getUrl(image:string|undefined){
+    return `../../../assets/Products/${image}`
+  }
+
 }
