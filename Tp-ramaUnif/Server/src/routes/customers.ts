@@ -1,16 +1,16 @@
 import { Router } from "express";
-import { deleteCustomer, getCustomers, getSalesUser, updateCustomer, updateCustomer2, updateCustomer3 } from "../controllers/customers";
+import { deleteCustomer, getCustomers, updateCustomer } from "../controllers/customers";
 import { loginUser } from "../controllers/user";
 import validateToken from "./validate-token";
+import { getSalesCustomer } from "../controllers/sales";
 
 
 const router = Router();
 
 router.get('/', getCustomers);
 router.delete('/:dni', deleteCustomer);
-router.patch('/:dni', updateCustomer3)
+router.patch('/:dni', updateCustomer)
 router.post('/login', loginUser);
-router.get('/:id', getSalesUser);
 
 
 

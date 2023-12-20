@@ -2,6 +2,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CustomerService } from 'src/app/services/customer.service';
+import { SalesService } from 'src/app/services/sales.service';
 
 
 
@@ -14,16 +15,22 @@ export class UserPurchasesComponent implements OnInit {
   user: any;
   listOfSales: any;
   modalRef?: BsModalRef;
-  constructor(private customerService: CustomerService,
+  constructor(
+    private salesService: SalesService,
     private modalService: BsModalService) {
     this.user = localStorage.getItem('user');
     this.user = JSON.parse(this.user);
-    this.customerService.getSalesUser(this.user.id).subscribe((data) => {
-      this.listOfSales = data
-    })
+
   }
 
   ngOnInit(): void {
+    console.log(this.user.id);
+    this.salesService.getSalesUser(this.user.id).subscribe((data) => {
+      this.listOfSales = data,
+        console.log(data);
+      console.log(this.listOfSales);
+    })
+
 
   }
 

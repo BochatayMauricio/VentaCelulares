@@ -22,10 +22,12 @@ export class UserProfileComponent implements OnInit {
   newEmail: any = "";
   newPassword: any = "";
   newPassword2: any = "";
+
   userM: any = {
     email: '',
     password: ''
   };
+
   listOfSales: any;
   modalRef?: BsModalRef;
   constructor(private customerService: CustomerService,

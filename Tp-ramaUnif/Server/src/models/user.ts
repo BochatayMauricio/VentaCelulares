@@ -12,7 +12,6 @@ export const User = sequelize.define('user', {
   },
   dni: {
     type: DataTypes.STRING,
-
     allowNull: false,
   },
   email: {
